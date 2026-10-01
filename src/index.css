@@ -217,7 +217,7 @@ html.lenis, html.lenis body {
   max-width: 850px;
   z-index: 3;
   pointer-events: none;
-  transform-gpu: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
   will-change: transform;
 }
 
