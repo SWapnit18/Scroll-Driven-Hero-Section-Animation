@@ -221,11 +221,17 @@ html.lenis, html.lenis body {
   will-change: transform;
 }
 
-.car-chassis-image {
+.car-svg-chassis-stage {
+  width: 100%;
+  position: relative;
+  filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.22));
+}
+
+.car-master-svg {
   width: 100%;
   height: auto;
   display: block;
-  filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.22));
+  overflow: visible;
 }
 
 .car-kinetic-shadow {
@@ -235,7 +241,6 @@ html.lenis, html.lenis body {
   filter: blur(16px);
   border-radius: 100%;
   margin: -10px auto 0;
-  will-change: transform;
 }
 
 /* SCROLL INDICATOR */

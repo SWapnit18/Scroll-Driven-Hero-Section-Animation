@@ -7,17 +7,18 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Hero() {
   const containerRef = useRef(null);
   const heroRef = useRef(null);
+  const carWrapperRef = useRef(null);
+  const frontSpokesRef = useRef(null);
+  const rearSpokesRef = useRef(null);
   const headlineRef = useRef(null);
   const subtitleRef = useRef(null);
-  const carWrapperRef = useRef(null);
-  const carShadowRef = useRef(null);
   const statsRef = useRef([]);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      // 1. Initial Page Load Entrance Timeline
+      // 1. Initial Page Load Animation
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
       tl.fromTo(
@@ -44,27 +45,30 @@ export default function Hero() {
         '-=0.7'
       );
 
-      // 2. Core Scroll-Driven Motion (GSAP ScrollTrigger + scrub)
+      // 2. Core Scroll-Driven Car Translation & TRUE RIGID WHEEL ROTATION
       if (!prefersReducedMotion) {
         const isMobile = window.innerWidth < 768;
         const travelX = isMobile ? 220 : (window.innerWidth > 1400 ? 640 : 460);
         const travelY = isMobile ? -30 : -20;
         const scaleVal = isMobile ? 1.08 : 1.16;
         const rotateVal = isMobile ? 2 : 4;
+        
+        // Physically calibrated angular spin proportional to forward distance
+        const wheelDegrees = isMobile ? 720 : 1260;
 
         const scrollTl = gsap.timeline({
           scrollTrigger: {
             trigger: containerRef.current,
             start: 'top top',
             end: '+=1600',
-            scrub: 1, // Smooth interpolation
+            scrub: 1, // Smooth mechanical scrub
             pin: heroRef.current,
             anticipatePin: 1,
             invalidateOnRefresh: true,
           }
         });
 
-        // 🏎️ Supercar glides seamlessly across viewport
+        // 🏎️ Supercar glides forward
         scrollTl.to(carWrapperRef.current, {
           x: travelX,
           y: travelY,
@@ -73,16 +77,25 @@ export default function Hero() {
           ease: 'power1.inOut',
         }, 0);
 
-        // Dynamic ground contact shadow tracks the vehicle
-        if (carShadowRef.current) {
-          scrollTl.to(carShadowRef.current, {
-            x: travelX * 0.95,
-            scaleX: 1.15,
+        // 🔄 Front Wheel Spokes Rotation around its exact center axle
+        if (frontSpokesRef.current) {
+          scrollTl.to(frontSpokesRef.current, {
+            rotation: wheelDegrees,
             ease: 'power1.inOut',
+            transformOrigin: '247px 233px', // Exact mathematical hub coordinate on 1236x331 canvas
           }, 0);
         }
 
-        // Text Parallax & Fade
+        // 🔄 Rear Wheel Spokes Rotation around its exact center axle
+        if (rearSpokesRef.current) {
+          scrollTl.to(rearSpokesRef.current, {
+            rotation: wheelDegrees,
+            ease: 'power1.inOut',
+            transformOrigin: '1045px 233px', // Exact mathematical hub coordinate on 1236x331 canvas
+          }, 0);
+        }
+
+        // Text Parallax
         scrollTl.to(headlineRef.current, {
           y: -50,
           opacity: 0.35,
@@ -136,15 +149,97 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Central Supercar Showcase (Original Clean Single-Asset Render) */}
+        {/* Central Vehicle Showcase with Rigid Multi-Spoke Wheel Rotation */}
         <div ref={carWrapperRef} className="car-kinetic-stage">
-          <img 
-            src="/car.png" 
-            alt="ITZFIZZ Velocity Aerodynamic Supercar" 
-            className="car-chassis-image"
-          />
+          <div className="car-svg-chassis-stage">
+            <svg 
+              viewBox="0 0 1236 331" 
+              className="car-master-svg"
+              aria-label="ITZFIZZ Velocity Aerodynamic Supercar"
+            >
+              <defs>
+                {/* Reusable Precision Supercar Wheel Rig */}
+                <g id="supercar-wheel-rim">
+                  {/* Outer Tire & Carbon Ring */}
+                  <circle cx="0" cy="0" r="95" fill="#151515" stroke="#262626" strokeWidth="4" />
+                  <circle cx="0" cy="0" r="88" fill="none" stroke="#FF5A36" strokeWidth="2.5" />
+                  <circle cx="0" cy="0" r="76" fill="#1c1c1c" stroke="#333333" strokeWidth="2" />
+                  
+                  {/* Ventilated Carbon Ceramic Brake Disc */}
+                  <circle cx="0" cy="0" r="66" fill="#2a2a2a" stroke="#404040" strokeWidth="1" strokeDasharray="3 3" />
+
+                  {/* 5 Dual-Spoke Titanium Alloy Rim */}
+                  {[0, 72, 144, 216, 288].map((angle, i) => (
+                    <g key={i} transform={`rotate(${angle})`}>
+                      {/* Titanium Spoke Left Blade */}
+                      <polygon points="-8,-20 -14,-72 -6,-74 -2,-20" fill="#b0b0b5" stroke="#dcdce0" strokeWidth="0.8" />
+                      {/* Titanium Spoke Right Blade */}
+                      <polygon points="8,-20 14,-72 6,-74 2,-20" fill="#8c8c92" stroke="#dcdce0" strokeWidth="0.8" />
+                      {/* Inner Accent Line */}
+                      <line x1="0" y1="-20" x2="0" y2="-72" stroke="#FF5A36" strokeWidth="1.8" />
+                      {/* Outer Rim Lip Arc */}
+                      <path d="M -14,-72 A 74 74 0 0 1 14,-72" fill="none" stroke="#FF5A36" strokeWidth="3" />
+                    </g>
+                  ))}
+
+                  {/* Central Titanium Hub & Emblem */}
+                  <circle cx="0" cy="0" r="22" fill="#111111" stroke="#b0b0b5" strokeWidth="2" />
+                  <circle cx="0" cy="0" r="14" fill="#1e1e1e" />
+                  <polygon points="-5,-2 5,-2 0,5" fill="#FF5A36" />
+                </g>
+              </defs>
+
+              {/* Base Supercar Body Image */}
+              <image 
+                href="/car.png" 
+                x="0" 
+                y="0" 
+                width="1236" 
+                height="331" 
+              />
+
+              {/* 🔄 FRONT ROTATING WHEEL (Axle: cx=247, cy=233) */}
+              <g ref={frontSpokesRef} transform="translate(247, 233)">
+                <use href="#supercar-wheel-rim" />
+              </g>
+
+              {/* FIXED FRONT BRAKE CALIPER (Mounted to car body, does not rotate) */}
+              <g transform="translate(247, 233)">
+                <path 
+                  d="M 44,-42 C 60,-20 62,20 44,42 L 32,36 C 46,18 45,-16 32,-36 Z" 
+                  fill="#FF5A36" 
+                  stroke="#ff785a" 
+                  strokeWidth="1.5"
+                  filter="drop-shadow(0 2px 4px rgba(0,0,0,0.4))"
+                />
+                <text x="44" y="3" fill="#ffffff" fontSize="7" fontWeight="bold" fontFamily="sans-serif" transform="rotate(90 44,3)" textAnchor="middle">
+                  BREMBO
+                </text>
+              </g>
+
+              {/* 🔄 REAR ROTATING WHEEL (Axle: cx=1045, cy=233) */}
+              <g ref={rearSpokesRef} transform="translate(1045, 233)">
+                <use href="#supercar-wheel-rim" />
+              </g>
+
+              {/* FIXED REAR BRAKE CALIPER (Mounted to car body, does not rotate) */}
+              <g transform="translate(1045, 233)">
+                <path 
+                  d="M -44,-42 C -60,-20 -62,20 -44,42 L -32,36 C -46,18 -45,-16 -32,-36 Z" 
+                  fill="#FF5A36" 
+                  stroke="#ff785a" 
+                  strokeWidth="1.5"
+                  filter="drop-shadow(0 2px 4px rgba(0,0,0,0.4))"
+                />
+                <text x="-44" y="3" fill="#ffffff" fontSize="7" fontWeight="bold" fontFamily="sans-serif" transform="rotate(-90 -44,3)" textAnchor="middle">
+                  BREMBO
+                </text>
+              </g>
+            </svg>
+          </div>
+
           {/* Ground Contact Shadow */}
-          <div ref={carShadowRef} className="car-kinetic-shadow" />
+          <div className="car-kinetic-shadow" />
         </div>
 
         {/* Scroll Prompt */}
