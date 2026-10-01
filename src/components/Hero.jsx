@@ -77,21 +77,21 @@ export default function Hero() {
           ease: 'power1.inOut',
         }, 0);
 
-        // 🔄 Front Wheel Rotation around exact center hub (242, 233)
+        // 🔄 Front Wheel Rotation around exact 50% 50% center
         if (frontWheelRef.current) {
           scrollTl.to(frontWheelRef.current, {
             rotation: wheelDegrees,
             ease: 'power1.inOut',
-            transformOrigin: '242px 233px',
+            transformOrigin: '50% 50%',
           }, 0);
         }
 
-        // 🔄 Rear Wheel Rotation around exact center hub (1045, 233)
+        // 🔄 Rear Wheel Rotation around exact 50% 50% center
         if (rearWheelRef.current) {
           scrollTl.to(rearWheelRef.current, {
             rotation: wheelDegrees,
             ease: 'power1.inOut',
-            transformOrigin: '1045px 233px',
+            transformOrigin: '50% 50%',
           }, 0);
         }
 
@@ -149,45 +149,35 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Central Vehicle Showcase with Exact Car Wheel Textures */}
+        {/* Central Vehicle Showcase with Responsive Locked Wheels */}
         <div ref={carWrapperRef} className="car-kinetic-stage">
-          <div className="car-svg-chassis-stage">
-            <svg 
-              viewBox="0 0 1236 331" 
-              className="car-master-svg"
-              aria-label="ITZFIZZ Velocity Aerodynamic Supercar"
-            >
-              {/* 1. Base Car Chassis with Clean Wheel Wells */}
-              <image 
-                href="/car_chassis_cutout.png" 
-                x="0" 
-                y="0" 
-                width="1236" 
-                height="331" 
+          <div className="car-rig-container">
+            {/* 1. Base Car Chassis with Clean Wheel Wells */}
+            <img 
+              src="/car_chassis_cutout.png" 
+              alt="ITZFIZZ Velocity Aerodynamic Supercar"
+              className="car-chassis-image"
+            />
+
+            {/* 2. 🔄 Locked Front Rotating Wheel (Exact Hub Center: 19.579%, 70.393%) */}
+            <div className="wheel-mount wheel-mount-front">
+              <img 
+                ref={frontWheelRef}
+                src="/wheel_front_actual.png" 
+                alt="Front Supercar Wheel"
+                className="wheel-disc-image"
               />
+            </div>
 
-              {/* 2. 🔄 Authentic Front Supercar Wheel (Rotates seamlessly around 242, 233) */}
-              <g ref={frontWheelRef}>
-                <image 
-                  href="/wheel_front_actual.png" 
-                  x={242 - 86} 
-                  y={233 - 86} 
-                  width="172" 
-                  height="172" 
-                />
-              </g>
-
-              {/* 3. 🔄 Authentic Rear Supercar Wheel (Rotates seamlessly around 1045, 233) */}
-              <g ref={rearWheelRef}>
-                <image 
-                  href="/wheel_rear_actual.png" 
-                  x={1045 - 86} 
-                  y={233 - 86} 
-                  width="172" 
-                  height="172" 
-                />
-              </g>
-            </svg>
+            {/* 3. 🔄 Locked Rear Rotating Wheel (Exact Hub Center: 84.547%, 70.393%) */}
+            <div className="wheel-mount wheel-mount-rear">
+              <img 
+                ref={rearWheelRef}
+                src="/wheel_rear_actual.png" 
+                alt="Rear Supercar Wheel"
+                className="wheel-disc-image"
+              />
+            </div>
           </div>
 
           {/* Ground Contact Shadow */}

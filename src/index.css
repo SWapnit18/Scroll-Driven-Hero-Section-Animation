@@ -221,17 +221,41 @@ html.lenis, html.lenis body {
   will-change: transform;
 }
 
-.car-svg-chassis-stage {
-  width: 100%;
+.car-rig-container {
   position: relative;
+  width: 100%;
   filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.22));
 }
 
-.car-master-svg {
+.car-chassis-image {
   width: 100%;
   height: auto;
   display: block;
-  overflow: visible;
+}
+
+.wheel-mount {
+  position: absolute;
+  width: 13.916%;
+  aspect-ratio: 1 / 1;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.wheel-mount-front {
+  left: 19.579%;
+  top: 70.393%;
+}
+
+.wheel-mount-rear {
+  left: 84.547%;
+  top: 70.393%;
+}
+
+.wheel-disc-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 50%;
 }
 
 .car-kinetic-shadow {
