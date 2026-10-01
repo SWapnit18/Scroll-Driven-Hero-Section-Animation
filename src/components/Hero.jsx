@@ -8,8 +8,8 @@ export default function Hero() {
   const containerRef = useRef(null);
   const heroRef = useRef(null);
   const carWrapperRef = useRef(null);
-  const frontSpokesRef = useRef(null);
-  const rearSpokesRef = useRef(null);
+  const frontWheelRef = useRef(null);
+  const rearWheelRef = useRef(null);
   const headlineRef = useRef(null);
   const subtitleRef = useRef(null);
   const statsRef = useRef([]);
@@ -45,7 +45,7 @@ export default function Hero() {
         '-=0.7'
       );
 
-      // 2. Core Scroll-Driven Car Translation & TRUE RIGID WHEEL ROTATION
+      // 2. Core Scroll-Driven Car Translation & TRUE MECHANICAL WHEEL ROTATION
       if (!prefersReducedMotion) {
         const isMobile = window.innerWidth < 768;
         const travelX = isMobile ? 220 : (window.innerWidth > 1400 ? 640 : 460);
@@ -53,7 +53,7 @@ export default function Hero() {
         const scaleVal = isMobile ? 1.08 : 1.16;
         const rotateVal = isMobile ? 2 : 4;
         
-        // Physically calibrated angular spin proportional to forward distance
+        // Exact wheel rotation calibrated to travel distance
         const wheelDegrees = isMobile ? 720 : 1260;
 
         const scrollTl = gsap.timeline({
@@ -61,7 +61,7 @@ export default function Hero() {
             trigger: containerRef.current,
             start: 'top top',
             end: '+=1600',
-            scrub: 1, // Smooth mechanical scrub
+            scrub: 1,
             pin: heroRef.current,
             anticipatePin: 1,
             invalidateOnRefresh: true,
@@ -77,21 +77,21 @@ export default function Hero() {
           ease: 'power1.inOut',
         }, 0);
 
-        // 🔄 Front Wheel Spokes Rotation around its exact center axle
-        if (frontSpokesRef.current) {
-          scrollTl.to(frontSpokesRef.current, {
+        // 🔄 Front Wheel Rotation around exact axle (241, 233)
+        if (frontWheelRef.current) {
+          scrollTl.to(frontWheelRef.current, {
             rotation: wheelDegrees,
             ease: 'power1.inOut',
-            transformOrigin: '247px 233px', // Exact mathematical hub coordinate on 1236x331 canvas
+            transformOrigin: '241px 233px',
           }, 0);
         }
 
-        // 🔄 Rear Wheel Spokes Rotation around its exact center axle
-        if (rearSpokesRef.current) {
-          scrollTl.to(rearSpokesRef.current, {
+        // 🔄 Rear Wheel Rotation around exact axle (1045, 233)
+        if (rearWheelRef.current) {
+          scrollTl.to(rearWheelRef.current, {
             rotation: wheelDegrees,
             ease: 'power1.inOut',
-            transformOrigin: '1045px 233px', // Exact mathematical hub coordinate on 1236x331 canvas
+            transformOrigin: '1045px 233px',
           }, 0);
         }
 
@@ -149,7 +149,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Central Vehicle Showcase with Rigid Multi-Spoke Wheel Rotation */}
+        {/* Central Vehicle Showcase with Precision Wheel Kinematics */}
         <div ref={carWrapperRef} className="car-kinetic-stage">
           <div className="car-svg-chassis-stage">
             <svg 
@@ -158,33 +158,59 @@ export default function Hero() {
               aria-label="ITZFIZZ Velocity Aerodynamic Supercar"
             >
               <defs>
-                {/* Reusable Precision Supercar Wheel Rig */}
+                {/* Precision Supercar Wheel Rim Vector Rig */}
                 <g id="supercar-wheel-rim">
-                  {/* Outer Tire & Carbon Ring */}
-                  <circle cx="0" cy="0" r="95" fill="#151515" stroke="#262626" strokeWidth="4" />
-                  <circle cx="0" cy="0" r="88" fill="none" stroke="#FF5A36" strokeWidth="2.5" />
-                  <circle cx="0" cy="0" r="76" fill="#1c1c1c" stroke="#333333" strokeWidth="2" />
+                  {/* Tire Tread & Sidewall Base */}
+                  <circle cx="0" cy="0" r="88" fill="#141416" stroke="#222224" strokeWidth="3" />
                   
-                  {/* Ventilated Carbon Ceramic Brake Disc */}
-                  <circle cx="0" cy="0" r="66" fill="#2a2a2a" stroke="#404040" strokeWidth="1" strokeDasharray="3 3" />
+                  {/* Outer Vivid Orange Accent Pinstripe */}
+                  <circle cx="0" cy="0" r="82" fill="none" stroke="#FF5A36" strokeWidth="2.4" />
+                  
+                  {/* Machined Silver Outer Rim Ring */}
+                  <circle cx="0" cy="0" r="77" fill="#1b1b1e" stroke="#c8c8ce" strokeWidth="1.8" />
+                  
+                  {/* Inner Dark Rim Barrel with Orange Halo */}
+                  <circle cx="0" cy="0" r="73" fill="#121214" stroke="#FF5A36" strokeWidth="1.4" opacity="0.9" />
 
-                  {/* 5 Dual-Spoke Titanium Alloy Rim */}
+                  {/* Carbon Ceramic Drilled Brake Rotor Surface */}
+                  <circle cx="0" cy="0" r="63" fill="#252528" stroke="#3d3d42" strokeWidth="1" strokeDasharray="3 3" />
+
+                  {/* 5 Dual-Blade Aerodynamic Titanium Spokes with Silver Chamfers */}
                   {[0, 72, 144, 216, 288].map((angle, i) => (
                     <g key={i} transform={`rotate(${angle})`}>
-                      {/* Titanium Spoke Left Blade */}
-                      <polygon points="-8,-20 -14,-72 -6,-74 -2,-20" fill="#b0b0b5" stroke="#dcdce0" strokeWidth="0.8" />
-                      {/* Titanium Spoke Right Blade */}
-                      <polygon points="8,-20 14,-72 6,-74 2,-20" fill="#8c8c92" stroke="#dcdce0" strokeWidth="0.8" />
-                      {/* Inner Accent Line */}
-                      <line x1="0" y1="-20" x2="0" y2="-72" stroke="#FF5A36" strokeWidth="1.8" />
-                      {/* Outer Rim Lip Arc */}
-                      <path d="M -14,-72 A 74 74 0 0 1 14,-72" fill="none" stroke="#FF5A36" strokeWidth="3" />
+                      {/* Dark Spoke Core Body */}
+                      <polygon points="-12,-18 -16,-72 16,-72 12,-18" fill="#1c1c1f" />
+                      
+                      {/* Left Silver Chamfer Blade */}
+                      <polygon points="-5,-18 -15,-72 -11,-74 -2,-18" fill="#dcdce2" />
+                      
+                      {/* Right Silver Chamfer Blade */}
+                      <polygon points="5,-18 15,-72 11,-74 2,-18" fill="#a0a0a8" />
+                      
+                      {/* Center Orange Kinematic Light Vector */}
+                      <line x1="0" y1="-20" x2="0" y2="-71" stroke="#FF5A36" strokeWidth="2.2" strokeLinecap="round" />
+                      
+                      {/* Outer Rim Lip Interlocking Blade Tip */}
+                      <polygon points="-16,-72 -14,-76 14,-76 16,-72" fill="#FF5A36" />
                     </g>
                   ))}
 
-                  {/* Central Titanium Hub & Emblem */}
-                  <circle cx="0" cy="0" r="22" fill="#111111" stroke="#b0b0b5" strokeWidth="2" />
-                  <circle cx="0" cy="0" r="14" fill="#1e1e1e" />
+                  {/* Titanium Wheel Hub & Center Lock Emblem */}
+                  <circle cx="0" cy="0" r="23" fill="#141416" stroke="#c0c0c8" strokeWidth="2" />
+                  <circle cx="0" cy="0" r="16" fill="#1f1f22" stroke="#FF5A36" strokeWidth="1" />
+                  
+                  {/* Wheel Lug Bolts */}
+                  {[0, 72, 144, 216, 288].map((boltAngle, j) => (
+                    <circle 
+                      key={j} 
+                      cx={10 * Math.sin((boltAngle * Math.PI) / 180)} 
+                      cy={-10 * Math.cos((boltAngle * Math.PI) / 180)} 
+                      r="1.8" 
+                      fill="#777" 
+                    />
+                  ))}
+
+                  {/* Center Emblem Icon */}
                   <polygon points="-5,-2 5,-2 0,5" fill="#FF5A36" />
                 </g>
               </defs>
@@ -198,40 +224,40 @@ export default function Hero() {
                 height="331" 
               />
 
-              {/* 🔄 FRONT ROTATING WHEEL (Axle: cx=247, cy=233) */}
-              <g ref={frontSpokesRef} transform="translate(247, 233)">
+              {/* 🔄 FRONT ROTATING WHEEL (Exact Axle: cx=241, cy=233) */}
+              <g ref={frontWheelRef} transform="translate(241, 233)">
                 <use href="#supercar-wheel-rim" />
               </g>
 
-              {/* FIXED FRONT BRAKE CALIPER (Mounted to car body, does not rotate) */}
-              <g transform="translate(247, 233)">
+              {/* FIXED FRONT BRAKE CALIPER (Mounted to suspension, does not rotate) */}
+              <g transform="translate(241, 233)">
                 <path 
-                  d="M 44,-42 C 60,-20 62,20 44,42 L 32,36 C 46,18 45,-16 32,-36 Z" 
+                  d="M 40,-42 C 58,-22 59,22 40,42 L 28,36 C 44,18 43,-16 28,-36 Z" 
                   fill="#FF5A36" 
                   stroke="#ff785a" 
                   strokeWidth="1.5"
-                  filter="drop-shadow(0 2px 4px rgba(0,0,0,0.4))"
+                  filter="drop-shadow(0 2px 5px rgba(0,0,0,0.5))"
                 />
-                <text x="44" y="3" fill="#ffffff" fontSize="7" fontWeight="bold" fontFamily="sans-serif" transform="rotate(90 44,3)" textAnchor="middle">
+                <text x="42" y="3" fill="#ffffff" fontSize="6.5" fontWeight="900" fontFamily="sans-serif" transform="rotate(90 42,3)" textAnchor="middle" letterSpacing="0.1em">
                   BREMBO
                 </text>
               </g>
 
-              {/* 🔄 REAR ROTATING WHEEL (Axle: cx=1045, cy=233) */}
-              <g ref={rearSpokesRef} transform="translate(1045, 233)">
+              {/* 🔄 REAR ROTATING WHEEL (Exact Axle: cx=1045, cy=233) */}
+              <g ref={rearWheelRef} transform="translate(1045, 233)">
                 <use href="#supercar-wheel-rim" />
               </g>
 
-              {/* FIXED REAR BRAKE CALIPER (Mounted to car body, does not rotate) */}
+              {/* FIXED REAR BRAKE CALIPER (Mounted to suspension, does not rotate) */}
               <g transform="translate(1045, 233)">
                 <path 
-                  d="M -44,-42 C -60,-20 -62,20 -44,42 L -32,36 C -46,18 -45,-16 -32,-36 Z" 
+                  d="M -40,-42 C -58,-22 -59,22 -40,42 L -28,36 C -44,18 -43,-16 -28,-36 Z" 
                   fill="#FF5A36" 
                   stroke="#ff785a" 
                   strokeWidth="1.5"
-                  filter="drop-shadow(0 2px 4px rgba(0,0,0,0.4))"
+                  filter="drop-shadow(0 2px 5px rgba(0,0,0,0.5))"
                 />
-                <text x="-44" y="3" fill="#ffffff" fontSize="7" fontWeight="bold" fontFamily="sans-serif" transform="rotate(-90 -44,3)" textAnchor="middle">
+                <text x="-42" y="3" fill="#ffffff" fontSize="6.5" fontWeight="900" fontFamily="sans-serif" transform="rotate(-90 -42,3)" textAnchor="middle" letterSpacing="0.1em">
                   BREMBO
                 </text>
               </g>
