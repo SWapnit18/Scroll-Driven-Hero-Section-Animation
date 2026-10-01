@@ -10,6 +10,8 @@ export default function Hero() {
   const headlineRef = useRef(null);
   const subtitleRef = useRef(null);
   const carWrapperRef = useRef(null);
+  const frontWheelRef = useRef(null);
+  const rearWheelRef = useRef(null);
   const statsRef = useRef([]);
 
   useLayoutEffect(() => {
@@ -43,13 +45,14 @@ export default function Hero() {
         '-=0.7'
       );
 
-      // 2. Core Scroll-Driven Motion (GSAP ScrollTrigger + scrub)
+      // 2. Core Scroll-Driven Car Translation & WHEEL ROTATION
       if (!prefersReducedMotion) {
         const isMobile = window.innerWidth < 768;
-        const travelX = isMobile ? 200 : (window.innerWidth > 1400 ? 600 : 440);
+        const travelX = isMobile ? 220 : (window.innerWidth > 1400 ? 640 : 460);
         const travelY = isMobile ? -30 : -20;
         const scaleVal = isMobile ? 1.08 : 1.16;
         const rotateVal = isMobile ? 2 : 4;
+        const wheelSpin = isMobile ? 540 : 1080;
 
         const scrollTl = gsap.timeline({
           scrollTrigger: {
@@ -63,7 +66,7 @@ export default function Hero() {
           }
         });
 
-        // 🏎️ Supercar glides across viewport cleanly
+        // 🏎️ Supercar glides forward
         scrollTl.to(carWrapperRef.current, {
           x: travelX,
           y: travelY,
@@ -72,7 +75,25 @@ export default function Hero() {
           ease: 'power1.inOut',
         }, 0);
 
-        // Text Parallax & Fade
+        // 🔄 Front Wheel Spin
+        if (frontWheelRef.current) {
+          scrollTl.to(frontWheelRef.current, {
+            rotation: wheelSpin,
+            ease: 'power1.inOut',
+            transformOrigin: '50% 50%',
+          }, 0);
+        }
+
+        // 🔄 Rear Wheel Spin
+        if (rearWheelRef.current) {
+          scrollTl.to(rearWheelRef.current, {
+            rotation: wheelSpin,
+            ease: 'power1.inOut',
+            transformOrigin: '50% 50%',
+          }, 0);
+        }
+
+        // Text Parallax
         scrollTl.to(headlineRef.current, {
           y: -50,
           opacity: 0.35,
@@ -126,13 +147,38 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Central Vehicle Showcase - Flawless Pristine Supercar */}
+        {/* Central Vehicle Showcase with Under-Chassis Spinning Wheels */}
         <div ref={carWrapperRef} className="car-kinetic-stage">
-          <img 
-            src="/car.png" 
-            alt="ITZFIZZ Velocity Aerodynamic Supercar" 
-            className="car-chassis-image"
-          />
+          <div className="car-composite-wrapper">
+            {/* Front Rotating Wheel Under Body */}
+            <div className="wheel-slot wheel-slot-front">
+              <img 
+                ref={frontWheelRef}
+                src="/front_spin_wheel.png" 
+                alt="Front Spinning Alloy Wheel" 
+                className="spinning-wheel-disc"
+              />
+            </div>
+
+            {/* Rear Rotating Wheel Under Body */}
+            <div className="wheel-slot wheel-slot-rear">
+              <img 
+                ref={rearWheelRef}
+                src="/rear_spin_wheel.png" 
+                alt="Rear Spinning Alloy Wheel" 
+                className="spinning-wheel-disc"
+              />
+            </div>
+
+            {/* Chassis Body Frame Mounted On Top of Wheels */}
+            <img 
+              src="/car_body_hollow.png" 
+              alt="ITZFIZZ Velocity Aerodynamic Supercar" 
+              className="car-hollow-chassis"
+            />
+          </div>
+
+          {/* Ground Contact Shadow */}
           <div className="car-kinetic-shadow" />
         </div>
 
