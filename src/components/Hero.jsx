@@ -45,7 +45,7 @@ export default function Hero() {
         '-=0.7'
       );
 
-      // 2. Core Scroll-Driven Car Translation & TRUE MECHANICAL WHEEL ROTATION
+      // 2. Core Scroll-Driven Car Translation & SMOOTH MOTION-ROTATION
       if (!prefersReducedMotion) {
         const isMobile = window.innerWidth < 768;
         const travelX = isMobile ? 220 : (window.innerWidth > 1400 ? 640 : 460);
@@ -77,7 +77,7 @@ export default function Hero() {
           ease: 'power1.inOut',
         }, 0);
 
-        // 🔄 Front Wheel Rotation around exact 50% 50% center
+        // 🔄 Front Wheel Rotation around exact 50% 50% hub center
         if (frontWheelRef.current) {
           scrollTl.to(frontWheelRef.current, {
             rotation: wheelDegrees,
@@ -86,7 +86,7 @@ export default function Hero() {
           }, 0);
         }
 
-        // 🔄 Rear Wheel Rotation around exact 50% 50% center
+        // 🔄 Rear Wheel Rotation around exact 50% 50% hub center
         if (rearWheelRef.current) {
           scrollTl.to(rearWheelRef.current, {
             rotation: wheelDegrees,
@@ -149,32 +149,32 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Central Vehicle Showcase with Responsive Locked Wheels */}
+        {/* Central Vehicle Showcase with Flawless Original Supercar Asset */}
         <div ref={carWrapperRef} className="car-kinetic-stage">
           <div className="car-rig-container">
-            {/* 1. Base Car Chassis with Clean Wheel Wells */}
+            {/* 1. Pristine Full-Resolution Supercar Image (Original Perfect Asset) */}
             <img 
-              src="/car_chassis_cutout.png" 
+              src="/car.png" 
               alt="ITZFIZZ Velocity Aerodynamic Supercar"
               className="car-chassis-image"
             />
 
-            {/* 2. 🔄 Locked Front Rotating Wheel (Exact Hub Center: 19.579%, 70.393%) */}
+            {/* 2. 🔄 Synchronized Front Wheel Spokes Overlay (Hub: 19.579%, 70.393%) */}
             <div className="wheel-mount wheel-mount-front">
               <img 
                 ref={frontWheelRef}
-                src="/wheel_front_actual.png" 
-                alt="Front Supercar Wheel"
+                src="/clean_spoke_front.png" 
+                alt="Front Supercar Wheel Spokes"
                 className="wheel-disc-image"
               />
             </div>
 
-            {/* 3. 🔄 Locked Rear Rotating Wheel (Exact Hub Center: 84.547%, 70.393%) */}
+            {/* 3. 🔄 Synchronized Rear Wheel Spokes Overlay (Hub: 84.547%, 70.393%) */}
             <div className="wheel-mount wheel-mount-rear">
               <img 
                 ref={rearWheelRef}
-                src="/wheel_rear_actual.png" 
-                alt="Rear Supercar Wheel"
+                src="/clean_spoke_rear.png" 
+                alt="Rear Supercar Wheel Spokes"
                 className="wheel-disc-image"
               />
             </div>
