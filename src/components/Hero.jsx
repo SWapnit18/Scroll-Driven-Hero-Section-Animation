@@ -45,7 +45,7 @@ export default function Hero() {
         '-=0.7'
       );
 
-      // 2. Core Scroll-Driven Car Translation & PRECISE IN-AXLE WHEEL ROTATION
+      // 2. Core Scroll-Driven Car Translation & PERFECT ZERO-OFFSET ROTATION
       if (!prefersReducedMotion) {
         const isMobile = window.innerWidth < 768;
         const travelX = isMobile ? 220 : (window.innerWidth > 1400 ? 640 : 460);
@@ -53,7 +53,7 @@ export default function Hero() {
         const scaleVal = isMobile ? 1.08 : 1.16;
         const rotateVal = isMobile ? 2 : 4;
         
-        // Exact physical angular revolution proportional to travel distance
+        // Exact wheel revolution calibrated to forward travel
         const wheelDegrees = isMobile ? 720 : 1260;
 
         const scrollTl = gsap.timeline({
@@ -77,7 +77,7 @@ export default function Hero() {
           ease: 'power1.inOut',
         }, 0);
 
-        // 🔄 Front Master Wheel + Tire Rotation around exact 50% 50% hub axle
+        // 🔄 Front Master Wheel + Tire Rotation around exact 50% 50% axle
         if (frontWheelRef.current) {
           scrollTl.to(frontWheelRef.current, {
             rotation: wheelDegrees,
@@ -86,7 +86,7 @@ export default function Hero() {
           }, 0);
         }
 
-        // 🔄 Rear Master Wheel + Tire Rotation around exact 50% 50% hub axle
+        // 🔄 Rear Master Wheel + Tire Rotation around exact 50% 50% axle
         if (rearWheelRef.current) {
           scrollTl.to(rearWheelRef.current, {
             rotation: wheelDegrees,
@@ -149,31 +149,31 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Central Vehicle Showcase with Master Axle Wheel Alignment */}
+        {/* Central Vehicle Showcase with Exact Centered Wheels */}
         <div ref={carWrapperRef} className="car-kinetic-stage">
           <div className="car-rig-container">
             {/* 1. Master Supercar Chassis with Exact Circular Cutouts */}
             <img 
-              src="/master_chassis.png" 
+              src="/ultimate_chassis.png" 
               alt="ITZFIZZ Velocity Aerodynamic Supercar"
               className="car-chassis-image"
             />
 
-            {/* 2. 🔄 Front Master Wheel & Tire Assembly (Exact Center: 20.429%, 71.299%) */}
+            {/* 2. 🔄 Front True Centered Wheel (Hub: 20.429%, 71.299%) */}
             <div className="wheel-mount wheel-mount-front">
               <img 
                 ref={frontWheelRef}
-                src="/master_wheel_front.png" 
+                src="/wheel_front_ultimate.png" 
                 alt="Front Supercar Wheel & Tire"
                 className="wheel-disc-image"
               />
             </div>
 
-            {/* 3. 🔄 Rear Master Wheel & Tire Assembly (Exact Center: 85.275%, 71.299%) */}
+            {/* 3. 🔄 Rear True Centered Wheel (Hub: 84.547%, 71.299%) */}
             <div className="wheel-mount wheel-mount-rear">
               <img 
                 ref={rearWheelRef}
-                src="/master_wheel_rear.png" 
+                src="/wheel_rear_ultimate.png" 
                 alt="Rear Supercar Wheel & Tire"
                 className="wheel-disc-image"
               />
