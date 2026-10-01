@@ -228,6 +228,8 @@ html.lenis, html.lenis body {
 }
 
 .car-chassis-image {
+  position: relative;
+  z-index: 2;
   width: 100%;
   height: auto;
   display: block;
@@ -235,6 +237,7 @@ html.lenis, html.lenis body {
 
 .wheel-mount {
   position: absolute;
+  z-index: 1;
   width: 14.401%;
   aspect-ratio: 1 / 1;
   transform: translate(-50%, -50%);

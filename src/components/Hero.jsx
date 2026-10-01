@@ -149,17 +149,10 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Central Vehicle Showcase with Exact Centered Wheels */}
+        {/* Central Vehicle Showcase with Fender Overlap Hierarchy */}
         <div ref={carWrapperRef} className="car-kinetic-stage">
           <div className="car-rig-container">
-            {/* 1. Master Supercar Chassis with Exact Circular Cutouts */}
-            <img 
-              src="/ultimate_chassis.png" 
-              alt="ITZFIZZ Velocity Aerodynamic Supercar"
-              className="car-chassis-image"
-            />
-
-            {/* 2. 🔄 Front True Centered Wheel (Hub: 20.429%, 71.299%) */}
+            {/* 1. 🔄 Front True Centered Wheel (Layer behind fender) */}
             <div className="wheel-mount wheel-mount-front">
               <img 
                 ref={frontWheelRef}
@@ -169,7 +162,7 @@ export default function Hero() {
               />
             </div>
 
-            {/* 3. 🔄 Rear True Centered Wheel (Hub: 84.547%, 71.299%) */}
+            {/* 2. 🔄 Rear True Centered Wheel (Layer behind fender) */}
             <div className="wheel-mount wheel-mount-rear">
               <img 
                 ref={rearWheelRef}
@@ -178,6 +171,13 @@ export default function Hero() {
                 className="wheel-disc-image"
               />
             </div>
+
+            {/* 3. Master Supercar Chassis (Front layer so fenders naturally overlap tires) */}
+            <img 
+              src="/ultimate_chassis.png" 
+              alt="ITZFIZZ Velocity Aerodynamic Supercar"
+              className="car-chassis-image"
+            />
           </div>
 
           {/* Ground Contact Shadow */}
