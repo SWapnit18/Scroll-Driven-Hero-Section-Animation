@@ -208,44 +208,66 @@ html.lenis, html.lenis body {
   margin-top: 4px;
 }
 
-/* HERO GHOST WATERMARK */
-.hero-ghost-text {
+/* CAR KINETIC STAGE */
+.car-kinetic-stage {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -62%);
-  font-family: "Space Grotesk", "Manrope", sans-serif;
-  font-weight: 800;
-  font-size: clamp(90px, 24vw, 360px);
-  letter-spacing: -0.05em;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(17, 17, 17, 0.08);
-  white-space: nowrap;
+  right: -2%;
+  bottom: 10%;
+  width: 58vw;
+  max-width: 850px;
+  z-index: 3;
   pointer-events: none;
-  user-select: none;
-  z-index: 1;
-}
-
-/* CAR CANVAS STAGE */
-.car-canvas-stage {
-  position: absolute;
-  left: 50%;
-  bottom: 8%;
-  transform: translateX(-50%);
-  width: min(88vw, 840px, calc((100svh - 440px) * 1.6889));
-  aspect-ratio: 684 / 405;
-  z-index: 2;
-  border-radius: 24px;
-  overflow: hidden;
-  background: #ffffff;
-  box-shadow: 0 35px 70px -30px rgba(17, 17, 17, 0.4), 0 0 0 1px rgba(17, 17, 17, 0.06);
+  transform-gpu: translate3d(0, 0, 0);
   will-change: transform;
 }
 
-.car-render-canvas {
+.car-rig-container {
+  position: relative;
+  width: 100%;
+  filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.22));
+}
+
+.car-chassis-image {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: auto;
   display: block;
+}
+
+.wheel-mount {
+  position: absolute;
+  z-index: 1;
+  width: 15.858%;
+  aspect-ratio: 1 / 1;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.wheel-mount-front {
+  left: 20.429%;
+  top: 71.299%;
+}
+
+.wheel-mount-rear {
+  left: 84.547%;
+  top: 71.299%;
+}
+
+.wheel-disc-image {
   width: 100%;
   height: 100%;
+  display: block;
+  border-radius: 50%;
+}
+
+.car-kinetic-shadow {
+  width: 85%;
+  height: 24px;
+  background: rgba(0, 0, 0, 0.25);
+  filter: blur(16px);
+  border-radius: 100%;
+  margin: -10px auto 0;
 }
 
 /* SCROLL INDICATOR */

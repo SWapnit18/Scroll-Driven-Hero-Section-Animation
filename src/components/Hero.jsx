@@ -1,65 +1,21 @@
-import React, { useLayoutEffect, useRef, useEffect } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const TOTAL_FRAMES = 100;
-const framePaths = Array.from({ length: TOTAL_FRAMES }, (_, i) => `/sequence/frame_${String(i).padStart(3, '0')}.webp`);
-
 export default function Hero() {
   const containerRef = useRef(null);
   const heroRef = useRef(null);
-  const canvasRef = useRef(null);
-  const stageRef = useRef(null);
+  const carWrapperRef = useRef(null);
+  const frontWheelRef = useRef(null);
+  const rearWheelRef = useRef(null);
   const headlineRef = useRef(null);
   const subtitleRef = useRef(null);
-  const ghostRef = useRef(null);
   const statsRef = useRef([]);
-  const imagesRef = useRef([]);
-
-  useEffect(() => {
-    // Preload image frame sequence
-    const imgs = [];
-    for (let i = 0; i < TOTAL_FRAMES; i++) {
-      const img = new Image();
-      img.src = framePaths[i];
-      imgs.push(img);
-    }
-    imagesRef.current = imgs;
-  }, []);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      const canvas = canvasRef.current;
-      if (!canvas) return;
-      const context = canvas.getContext('2d');
-
-      let currentFrame = -1;
-
-      const renderFrame = (index) => {
-        const i = Math.max(0, Math.min(TOTAL_FRAMES - 1, index));
-        const img = imagesRef.current[i];
-        if (!img) return;
-
-        if (img.complete && img.naturalWidth) {
-          if (i !== currentFrame) {
-            context.clearRect(0, 0, canvas.width, canvas.height);
-            context.drawImage(img, 0, 0, canvas.width, canvas.height);
-            currentFrame = i;
-          }
-        } else {
-          img.onload = () => {
-            context.clearRect(0, 0, canvas.width, canvas.height);
-            context.drawImage(img, 0, 0, canvas.width, canvas.height);
-            currentFrame = i;
-          };
-        }
-      };
-
-      // Initial render
-      renderFrame(0);
-
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       // 1. Initial Page Load Animation
@@ -83,70 +39,76 @@ export default function Hero() {
         '-=0.6'
       )
       .fromTo(
-        stageRef.current,
-        { opacity: 0, y: 60, scale: 0.94 },
-        { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: 'power2.out' },
+        carWrapperRef.current,
+        { opacity: 0, x: -80, scale: 0.92 },
+        { opacity: 1, x: 0, scale: 1, duration: 1.2, ease: 'power2.out' },
         '-=0.7'
-      )
-      .fromTo(
-        ghostRef.current,
-        { opacity: 0 },
-        { opacity: 0.08, duration: 1.6 },
-        0
       );
 
-      // 2. Cinematic Scroll-Driven Drive Timeline
+      // 2. Core Scroll-Driven Car Translation & PERFECT ZERO-OFFSET ROTATION
       if (!prefersReducedMotion) {
-        const frameObj = { frame: 0 };
+        const isMobile = window.innerWidth < 768;
+        const travelX = isMobile ? 220 : (window.innerWidth > 1400 ? 640 : 460);
+        const travelY = isMobile ? -30 : -20;
+        const scaleVal = isMobile ? 1.08 : 1.16;
+        const rotateVal = isMobile ? 2 : 4;
+        
+        // Exact wheel revolution calibrated to forward travel
+        const wheelDegrees = isMobile ? 720 : 1260;
 
         const scrollTl = gsap.timeline({
           scrollTrigger: {
             trigger: containerRef.current,
             start: 'top top',
-            end: '+=2800',
-            scrub: 0.6,
+            end: '+=1600',
+            scrub: 1,
             pin: heroRef.current,
             anticipatePin: 1,
             invalidateOnRefresh: true,
           }
         });
 
-        // Frame playback perfectly bound to scroll position
-        scrollTl.to(frameObj, {
-          frame: TOTAL_FRAMES - 1,
-          ease: 'none',
-          duration: 1,
-          onUpdate: () => renderFrame(Math.round(frameObj.frame)),
-        }, 0);
-
-        // Smooth zoom & translation dynamics
-        scrollTl.to(stageRef.current, {
-          scale: 1.08,
+        // 🏎️ Supercar glides forward
+        scrollTl.to(carWrapperRef.current, {
+          x: travelX,
+          y: travelY,
+          scale: scaleVal,
+          rotation: rotateVal,
           ease: 'power1.inOut',
-          duration: 1,
         }, 0);
 
-        // Content Fade & Parallax
-        scrollTl.to(headlineRef.current, {
-          y: -40,
-          opacity: 0.25,
-          duration: 0.4,
-          ease: 'none',
-        }, 0.05);
+        // 🔄 Front Master Wheel + Tire Rotation around exact 50% 50% axle
+        if (frontWheelRef.current) {
+          scrollTl.to(frontWheelRef.current, {
+            rotation: wheelDegrees,
+            ease: 'power1.inOut',
+            transformOrigin: '50% 50%',
+          }, 0);
+        }
 
-        scrollTl.to(subtitleRef.current, {
-          opacity: 0,
-          duration: 0.15,
+        // 🔄 Rear Master Wheel + Tire Rotation around exact 50% 50% axle
+        if (rearWheelRef.current) {
+          scrollTl.to(rearWheelRef.current, {
+            rotation: wheelDegrees,
+            ease: 'power1.inOut',
+            transformOrigin: '50% 50%',
+          }, 0);
+        }
+
+        // Text Parallax
+        scrollTl.to(headlineRef.current, {
+          y: -50,
+          opacity: 0.35,
+          scale: 0.96,
           ease: 'none',
         }, 0);
 
         scrollTl.to(statsRef.current, {
-          y: -20,
-          opacity: 0,
-          stagger: 0.04,
-          duration: 0.3,
+          y: 35,
+          opacity: 0.3,
+          stagger: 0.05,
           ease: 'none',
-        }, 0.04);
+        }, 0);
       }
     }, containerRef);
 
@@ -156,11 +118,6 @@ export default function Hero() {
   return (
     <section ref={containerRef} id="hero" className="hero-container">
       <div ref={heroRef} className="hero-viewport">
-        {/* Background Ghost Watermark */}
-        <div ref={ghostRef} className="hero-ghost-text" aria-hidden="true">
-          AETHERIS
-        </div>
-
         {/* Editorial Text Content */}
         <div className="hero-content">
           <p className="hero-eyebrow">DIGITAL EXPERIENCES</p>
@@ -170,38 +127,61 @@ export default function Hero() {
           </h1>
 
           <p ref={subtitleRef} className="hero-subtitle">
-            Scroll to take the Aetheris from studio to open road.
+            Digital experiences designed to move people forward.
           </p>
 
           {/* Impact Statistics */}
           <div className="hero-stats">
             <div ref={(el) => (statsRef.current[0] = el)} className="stat-item">
-              <strong className="stat-number">1000+</strong>
-              <span className="stat-label">Horsepower Hybrid V8</span>
+              <strong className="stat-number">32%</strong>
+              <span className="stat-label">Faster Experiences</span>
             </div>
 
             <div ref={(el) => (statsRef.current[1] = el)} className="stat-item">
-              <strong className="stat-number">1100 Nm</strong>
-              <span className="stat-label">Instant Torque</span>
+              <strong className="stat-number">68%</strong>
+              <span className="stat-label">Higher Engagement</span>
             </div>
 
             <div ref={(el) => (statsRef.current[2] = el)} className="stat-item">
-              <strong className="stat-number">100%</strong>
-              <span className="stat-label">Motion Follows Scroll</span>
+              <strong className="stat-number">94%</strong>
+              <span className="stat-label">Client Satisfaction</span>
             </div>
           </div>
         </div>
 
-        {/* Cinematic Hypercar Canvas Stage */}
-        <div ref={stageRef} className="car-canvas-stage">
-          <canvas 
-            ref={canvasRef} 
-            width={684} 
-            height={405} 
-            className="car-render-canvas"
-            role="img"
-            aria-label="Aetheris hypercar driving from studio to open road, controlled by scroll"
-          />
+        {/* Central Vehicle Showcase with Fender Overlap Hierarchy */}
+        <div ref={carWrapperRef} className="car-kinetic-stage">
+          <div className="car-rig-container">
+            {/* 1. 🔄 Front True Centered Wheel (Layer behind fender) */}
+            <div className="wheel-mount wheel-mount-front">
+              <img 
+                ref={frontWheelRef}
+                src="/custom_forged_wheel.png" 
+                alt="Front Supercar Wheel & Tire"
+                className="wheel-disc-image"
+              />
+            </div>
+
+            {/* 2. 🔄 Rear True Centered Wheel (Layer behind fender) */}
+            <div className="wheel-mount wheel-mount-rear">
+              <img 
+                ref={rearWheelRef}
+                src="/custom_forged_wheel.png" 
+                alt="Rear Supercar Wheel & Tire"
+                className="wheel-disc-image"
+              />
+            </div>
+
+            {/* 3. Master Supercar Chassis (Front layer so fenders naturally overlap tires) */}
+            <img 
+              src="/pristine_chassis.png" 
+              alt="ITZFIZZ Velocity Aerodynamic Supercar"
+              className="car-chassis-image"
+            />
+          </div>
+
+          {/* Ground Contact Shadow */}
+          <div className="car-kinetic-shadow" />
         </div>
 
         {/* Scroll Prompt */}
