@@ -103,6 +103,32 @@ npm run preview
 
 ---
 
+## 🐳 Universal Docker Support (Run on Any Operating System)
+
+You can run this project on **Windows, macOS, Linux, or any cloud server** with zero dependency setup using Docker or Docker Compose:
+
+### Option A: Using Docker Compose (Recommended)
+```bash
+docker compose up --build -d
+```
+Access the application immediately at: **`http://localhost:8080`**
+
+To stop the container:
+```bash
+docker compose down
+```
+
+### Option B: Using Docker CLI
+```bash
+# Build the production image
+docker build -t itzfizz-app .
+
+# Run the container on port 8080
+docker run -d -p 8080:80 --name itzfizz-experience itzfizz-app
+```
+
+---
+
 ## Live Demo & Repository
 
 - **Live Demo**: `https://swapnit18.github.io/Scroll-Driven-Hero-Section-Animation/` *(or Vercel / Netlify link)*
