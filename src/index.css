@@ -122,7 +122,7 @@ html.lenis, html.lenis body {
 }
 
 /* ==================================================
-   HERO SECTION & CAR SHOWCASE
+   HERO SECTION & CAR KINETIC STAGE
    ================================================== */
 .hero-container {
   position: relative;
@@ -208,38 +208,68 @@ html.lenis, html.lenis body {
   margin-top: 4px;
 }
 
-/* CAR SHOWCASE (VIDEO STAGE) */
-.car-showcase-container {
+/* CAR KINETIC STAGE & ROTATING WHEELS */
+.car-kinetic-stage {
   position: absolute;
-  right: 2%;
-  bottom: 10%;
-  width: 54vw;
-  max-width: 780px;
+  right: -2%;
+  bottom: 9%;
+  width: 58vw;
+  max-width: 850px;
   z-index: 3;
   pointer-events: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  transform-gpu: translate3d(0, 0, 0);
+  will-change: transform;
 }
 
-.car-showcase-video {
+.car-chassis-image {
   width: 100%;
   height: auto;
   display: block;
-  border-radius: 24px;
-  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.22);
-  filter: contrast(1.05) saturate(1.05);
-  object-fit: cover;
-  background: #000;
+  filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.22));
+  position: relative;
+  z-index: 2;
 }
 
-.car-ground-shadow {
+/* WHEEL ANCHORS ON CHASSIS */
+.wheel-anchor {
+  position: absolute;
+  bottom: 0%;
+  width: 16.5%;
+  aspect-ratio: 1 / 1;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wheel-front {
+  left: 12.3%;
+  bottom: 0.8%;
+}
+
+.wheel-rear {
+  right: 12.2%;
+  bottom: 0.8%;
+}
+
+.rotating-wheel-rim {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  will-change: transform;
+  transform-origin: center center;
+}
+
+.car-kinetic-shadow {
   width: 85%;
   height: 24px;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.25);
   filter: blur(16px);
   border-radius: 100%;
-  margin-top: -12px;
+  margin: -10px auto 0;
+  position: relative;
+  z-index: 1;
 }
 
 /* SCROLL INDICATOR */
@@ -442,7 +472,7 @@ html.lenis, html.lenis body {
     min-height: 100vh;
   }
 
-  .car-showcase-container {
+  .car-kinetic-stage {
     position: relative;
     right: auto;
     bottom: auto;

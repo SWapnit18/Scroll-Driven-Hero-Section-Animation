@@ -7,16 +7,18 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Hero() {
   const containerRef = useRef(null);
   const heroRef = useRef(null);
-  const videoRef = useRef(null);
   const headlineRef = useRef(null);
   const subtitleRef = useRef(null);
+  const carWrapperRef = useRef(null);
+  const frontWheelRef = useRef(null);
+  const rearWheelRef = useRef(null);
   const statsRef = useRef([]);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      // 1. Initial Page Load Entrance Animation
+      // 1. Initial Page Load Animation
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
       tl.fromTo(
@@ -37,66 +39,76 @@ export default function Hero() {
         '-=0.6'
       )
       .fromTo(
-        videoRef.current,
-        { opacity: 0, scale: 0.94 },
-        { opacity: 1, scale: 1, duration: 1.2, ease: 'power2.out' },
-        '-=0.8'
+        carWrapperRef.current,
+        { opacity: 0, x: -80, scale: 0.92 },
+        { opacity: 1, x: 0, scale: 1, duration: 1.2, ease: 'power2.out' },
+        '-=0.7'
       );
 
-      // 2. Core Scroll-Driven Video Frame Scrubbing
+      // 2. Core Scroll-Driven Car Translation & WHEEL ROTATION
       if (!prefersReducedMotion) {
-        const video = videoRef.current;
+        const isMobile = window.innerWidth < 768;
+        const travelX = isMobile ? 220 : (window.innerWidth > 1400 ? 640 : 460);
+        const travelY = isMobile ? -30 : -20;
+        const scaleVal = isMobile ? 1.08 : 1.16;
+        const rotateVal = isMobile ? 2 : 4;
+        
+        // Total wheel rotation degrees proportional to travel distance (forward spin)
+        const wheelSpin = isMobile ? 480 : 860;
 
-        const setupScrollVideo = () => {
-          const duration = (video && video.duration && isFinite(video.duration)) ? video.duration : 9;
-
-          const scrollTl = gsap.timeline({
-            scrollTrigger: {
-              trigger: containerRef.current,
-              start: 'top top',
-              end: '+=1800',
-              scrub: 1,
-              pin: heroRef.current,
-              anticipatePin: 1,
-              invalidateOnRefresh: true,
-            }
-          });
-
-          // Scrub video currentTime with scroll progress
-          if (video) {
-            scrollTl.to(video, {
-              currentTime: duration,
-              ease: 'none',
-            }, 0);
+        const scrollTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top top',
+            end: '+=1600',
+            scrub: 1, // Smooth interpolation
+            pin: heroRef.current,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
           }
+        });
 
-          // Subtle text parallax
-          scrollTl.to(headlineRef.current, {
-            y: -50,
-            opacity: 0.35,
-            scale: 0.96,
-            ease: 'none',
+        // 🏎️ Supercar glides forward
+        scrollTl.to(carWrapperRef.current, {
+          x: travelX,
+          y: travelY,
+          scale: scaleVal,
+          rotation: rotateVal,
+          ease: 'power1.inOut',
+        }, 0);
+
+        // 🔄 Front Wheel Rotation
+        if (frontWheelRef.current) {
+          scrollTl.to(frontWheelRef.current, {
+            rotation: wheelSpin,
+            ease: 'power1.inOut',
+            transformOrigin: '50% 50%',
           }, 0);
-
-          scrollTl.to(statsRef.current, {
-            y: 35,
-            opacity: 0.3,
-            stagger: 0.05,
-            ease: 'none',
-          }, 0);
-        };
-
-        if (video) {
-          if (video.readyState >= 1 && isFinite(video.duration)) {
-            setupScrollVideo();
-          } else {
-            video.addEventListener('loadedmetadata', setupScrollVideo, { once: true });
-            // Immediate fallback trigger so it never fails to attach
-            setTimeout(setupScrollVideo, 300);
-          }
-        } else {
-          setupScrollVideo();
         }
+
+        // 🔄 Rear Wheel Rotation
+        if (rearWheelRef.current) {
+          scrollTl.to(rearWheelRef.current, {
+            rotation: wheelSpin,
+            ease: 'power1.inOut',
+            transformOrigin: '50% 50%',
+          }, 0);
+        }
+
+        // Text Parallax
+        scrollTl.to(headlineRef.current, {
+          y: -50,
+          opacity: 0.35,
+          scale: 0.96,
+          ease: 'none',
+        }, 0);
+
+        scrollTl.to(statsRef.current, {
+          y: 35,
+          opacity: 0.3,
+          stagger: 0.05,
+          ease: 'none',
+        }, 0);
       }
     }, containerRef);
 
@@ -137,19 +149,37 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Central Vehicle Showcase Container (Video + Fallback Car Image) */}
-        <div className="car-showcase-container">
-          <video
-            ref={videoRef}
-            className="car-showcase-video"
-            src="/assets/car-hero.mp4"
-            muted
-            playsInline
-            autoPlay
-            loop
-            preload="auto"
+        {/* Central Vehicle Showcase with Rotating Alloy Wheels */}
+        <div ref={carWrapperRef} className="car-kinetic-stage">
+          {/* Main Car Body */}
+          <img 
+            src="/car.png" 
+            alt="ITZFIZZ Velocity Aerodynamic Supercar" 
+            className="car-chassis-image"
           />
-          <div className="car-ground-shadow" />
+
+          {/* Front Rotating Wheel Layer */}
+          <div className="wheel-anchor wheel-front">
+            <img 
+              ref={frontWheelRef}
+              src="/car_wheel_disc.png" 
+              alt="Front Forged Alloy Wheel" 
+              className="rotating-wheel-rim"
+            />
+          </div>
+
+          {/* Rear Rotating Wheel Layer */}
+          <div className="wheel-anchor wheel-rear">
+            <img 
+              ref={rearWheelRef}
+              src="/car_wheel_disc.png" 
+              alt="Rear Forged Alloy Wheel" 
+              className="rotating-wheel-rim"
+            />
+          </div>
+
+          {/* Ground Contact Shadow */}
+          <div className="car-kinetic-shadow" />
         </div>
 
         {/* Scroll Prompt */}
