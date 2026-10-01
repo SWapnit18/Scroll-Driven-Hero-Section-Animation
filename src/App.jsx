@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import Gallery from './components/Gallery';
 import Stats from './components/Stats';
 import CTA from './components/CTA';
 
@@ -11,14 +12,12 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
   useEffect(() => {
-    // Check user preference for reduced motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
 
-    // Initialize Lenis Smooth Scroll
     const lenis = new Lenis({
       duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential easing
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       direction: 'vertical',
       gestureDirection: 'vertical',
       smooth: true,
@@ -26,7 +25,6 @@ export default function App() {
       touchMultiplier: 2,
     });
 
-    // Synchronize Lenis with GSAP ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update);
 
     const updateLenis = (time) => {
@@ -34,7 +32,7 @@ export default function App() {
     };
 
     gsap.ticker.add(updateLenis);
-    gsap.ticker.lagSmoothing(0); // Prevent lag smoothing conflicts with smooth scroll
+    gsap.ticker.lagSmoothing(0);
 
     return () => {
       gsap.ticker.remove(updateLenis);
@@ -52,10 +50,13 @@ export default function App() {
         {/* 2. Hero & Scroll Animation Section */}
         <Hero />
 
-        {/* 3. Impact Statistics Section */}
+        {/* 3. Multi-Angle Perspective Showcase */}
+        <Gallery />
+
+        {/* 4. Impact Statistics Section */}
         <Stats />
 
-        {/* 4. Final CTA Section */}
+        {/* 5. Final CTA Section */}
         <CTA />
       </main>
     </div>
