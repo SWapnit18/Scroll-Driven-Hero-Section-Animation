@@ -45,7 +45,7 @@ export default function Hero() {
         '-=0.7'
       );
 
-      // 2. Core Scroll-Driven Car Translation & FULL WHEEL + TIRE SYNCHRONIZED ROTATION
+      // 2. Core Scroll-Driven Car Translation & PRECISE IN-AXLE WHEEL ROTATION
       if (!prefersReducedMotion) {
         const isMobile = window.innerWidth < 768;
         const travelX = isMobile ? 220 : (window.innerWidth > 1400 ? 640 : 460);
@@ -77,7 +77,7 @@ export default function Hero() {
           ease: 'power1.inOut',
         }, 0);
 
-        // 🔄 Front Full Wheel + Tire Rotation around exact 50% 50% axle center
+        // 🔄 Front True Wheel + Tire Rotation around exact 50% 50% hub axle
         if (frontWheelRef.current) {
           scrollTl.to(frontWheelRef.current, {
             rotation: wheelDegrees,
@@ -86,7 +86,7 @@ export default function Hero() {
           }, 0);
         }
 
-        // 🔄 Rear Full Wheel + Tire Rotation around exact 50% 50% axle center
+        // 🔄 Rear True Wheel + Tire Rotation around exact 50% 50% hub axle
         if (rearWheelRef.current) {
           scrollTl.to(rearWheelRef.current, {
             rotation: wheelDegrees,
@@ -149,31 +149,31 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Central Vehicle Showcase with Full Rotating Wheels + Tires Attached */}
+        {/* Central Vehicle Showcase with Exact Axle Wheel Alignment */}
         <div ref={carWrapperRef} className="car-kinetic-stage">
           <div className="car-rig-container">
-            {/* 1. Base Supercar Chassis with Clean Integrated Wheel Wells */}
+            {/* 1. Base Supercar Chassis with Exact Circular Cutouts */}
             <img 
-              src="/car_body_clean_wheelwells.png" 
+              src="/true_chassis_cutout.png" 
               alt="ITZFIZZ Velocity Aerodynamic Supercar"
               className="car-chassis-image"
             />
 
-            {/* 2. 🔄 Front Complete Wheel & Tire Assembly (Hub: 19.579%, 70.393%) */}
+            {/* 2. 🔄 Front True Wheel & Tire Assembly (Exact Center: 21.197%, 71.903%) */}
             <div className="wheel-mount wheel-mount-front">
               <img 
                 ref={frontWheelRef}
-                src="/complete_wheel_tire_front.png" 
+                src="/true_wheel_front.png" 
                 alt="Front Supercar Wheel & Tire"
                 className="wheel-disc-image"
               />
             </div>
 
-            {/* 3. 🔄 Rear Complete Wheel & Tire Assembly (Hub: 84.547%, 70.393%) */}
+            {/* 3. 🔄 Rear True Wheel & Tire Assembly (Exact Center: 85.275%, 71.299%) */}
             <div className="wheel-mount wheel-mount-rear">
               <img 
                 ref={rearWheelRef}
-                src="/complete_wheel_tire_rear.png" 
+                src="/true_wheel_rear.png" 
                 alt="Rear Supercar Wheel & Tire"
                 className="wheel-disc-image"
               />

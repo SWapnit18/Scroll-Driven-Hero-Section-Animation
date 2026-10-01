@@ -235,20 +235,20 @@ html.lenis, html.lenis body {
 
 .wheel-mount {
   position: absolute;
-  width: 14.24%;
+  width: 14.563%;
   aspect-ratio: 1 / 1;
   transform: translate(-50%, -50%);
   pointer-events: none;
 }
 
 .wheel-mount-front {
-  left: 19.579%;
-  top: 70.393%;
+  left: 21.197%;
+  top: 71.903%;
 }
 
 .wheel-mount-rear {
-  left: 84.547%;
-  top: 70.393%;
+  left: 85.275%;
+  top: 71.299%;
 }
 
 .wheel-disc-image {
