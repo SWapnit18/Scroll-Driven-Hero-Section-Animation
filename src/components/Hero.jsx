@@ -156,7 +156,7 @@ export default function Hero() {
             <div className="wheel-mount wheel-mount-front">
               <img 
                 ref={frontWheelRef}
-                src="/wheel_front_ultimate.png" 
+                src="/pristine_wheel_front.png" 
                 alt="Front Supercar Wheel & Tire"
                 className="wheel-disc-image"
               />
@@ -166,7 +166,7 @@ export default function Hero() {
             <div className="wheel-mount wheel-mount-rear">
               <img 
                 ref={rearWheelRef}
-                src="/wheel_rear_ultimate.png" 
+                src="/pristine_wheel_rear.png" 
                 alt="Rear Supercar Wheel & Tire"
                 className="wheel-disc-image"
               />
@@ -174,7 +174,7 @@ export default function Hero() {
 
             {/* 3. Master Supercar Chassis (Front layer so fenders naturally overlap tires) */}
             <img 
-              src="/ultimate_chassis.png" 
+              src="/pristine_chassis.png" 
               alt="ITZFIZZ Velocity Aerodynamic Supercar"
               className="car-chassis-image"
             />
