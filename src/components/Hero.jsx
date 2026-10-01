@@ -45,7 +45,7 @@ export default function Hero() {
         '-=0.7'
       );
 
-      // 2. Core Scroll-Driven Car Translation & SMOOTH MOTION-ROTATION
+      // 2. Core Scroll-Driven Car Translation & FULL WHEEL + TIRE SYNCHRONIZED ROTATION
       if (!prefersReducedMotion) {
         const isMobile = window.innerWidth < 768;
         const travelX = isMobile ? 220 : (window.innerWidth > 1400 ? 640 : 460);
@@ -53,7 +53,7 @@ export default function Hero() {
         const scaleVal = isMobile ? 1.08 : 1.16;
         const rotateVal = isMobile ? 2 : 4;
         
-        // Exact wheel rotation calibrated to travel distance
+        // Exact physical angular revolution proportional to travel distance
         const wheelDegrees = isMobile ? 720 : 1260;
 
         const scrollTl = gsap.timeline({
@@ -77,7 +77,7 @@ export default function Hero() {
           ease: 'power1.inOut',
         }, 0);
 
-        // 🔄 Front Wheel Rotation around exact 50% 50% hub center
+        // 🔄 Front Full Wheel + Tire Rotation around exact 50% 50% axle center
         if (frontWheelRef.current) {
           scrollTl.to(frontWheelRef.current, {
             rotation: wheelDegrees,
@@ -86,7 +86,7 @@ export default function Hero() {
           }, 0);
         }
 
-        // 🔄 Rear Wheel Rotation around exact 50% 50% hub center
+        // 🔄 Rear Full Wheel + Tire Rotation around exact 50% 50% axle center
         if (rearWheelRef.current) {
           scrollTl.to(rearWheelRef.current, {
             rotation: wheelDegrees,
@@ -149,32 +149,32 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Central Vehicle Showcase with Flawless Original Supercar Asset */}
+        {/* Central Vehicle Showcase with Full Rotating Wheels + Tires Attached */}
         <div ref={carWrapperRef} className="car-kinetic-stage">
           <div className="car-rig-container">
-            {/* 1. Pristine Full-Resolution Supercar Image (Original Perfect Asset) */}
+            {/* 1. Base Supercar Chassis with Clean Integrated Wheel Wells */}
             <img 
-              src="/car.png" 
+              src="/car_body_clean_wheelwells.png" 
               alt="ITZFIZZ Velocity Aerodynamic Supercar"
               className="car-chassis-image"
             />
 
-            {/* 2. 🔄 Synchronized Front Wheel Spokes Overlay (Hub: 19.579%, 70.393%) */}
+            {/* 2. 🔄 Front Complete Wheel & Tire Assembly (Hub: 19.579%, 70.393%) */}
             <div className="wheel-mount wheel-mount-front">
               <img 
                 ref={frontWheelRef}
-                src="/clean_spoke_front.png" 
-                alt="Front Supercar Wheel Spokes"
+                src="/complete_wheel_tire_front.png" 
+                alt="Front Supercar Wheel & Tire"
                 className="wheel-disc-image"
               />
             </div>
 
-            {/* 3. 🔄 Synchronized Rear Wheel Spokes Overlay (Hub: 84.547%, 70.393%) */}
+            {/* 3. 🔄 Rear Complete Wheel & Tire Assembly (Hub: 84.547%, 70.393%) */}
             <div className="wheel-mount wheel-mount-rear">
               <img 
                 ref={rearWheelRef}
-                src="/clean_spoke_rear.png" 
-                alt="Rear Supercar Wheel Spokes"
+                src="/complete_wheel_tire_rear.png" 
+                alt="Rear Supercar Wheel & Tire"
                 className="wheel-disc-image"
               />
             </div>

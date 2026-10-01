@@ -235,7 +235,7 @@ html.lenis, html.lenis body {
 
 .wheel-mount {
   position: absolute;
-  width: 11.65%;
+  width: 14.24%;
   aspect-ratio: 1 / 1;
   transform: translate(-50%, -50%);
   pointer-events: none;
