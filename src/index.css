@@ -208,7 +208,7 @@ html.lenis, html.lenis body {
   margin-top: 4px;
 }
 
-/* CAR KINETIC STAGE & ROTATING WHEELS */
+/* CAR KINETIC STAGE */
 .car-kinetic-stage {
   position: absolute;
   right: -2%;
@@ -221,49 +221,11 @@ html.lenis, html.lenis body {
   will-change: transform;
 }
 
-.car-composite-wrapper {
-  position: relative;
-  width: 100%;
-}
-
-.car-hollow-chassis {
+.car-chassis-image {
   width: 100%;
   height: auto;
   display: block;
   filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.22));
-  position: relative;
-  z-index: 3;
-}
-
-/* UNDER-BODY ROTATING WHEEL SLOTS (Width: 15.37%, Height: 57.4%) */
-.wheel-slot {
-  position: absolute;
-  top: 41.69%;
-  width: 15.37%;
-  height: 57.4%;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Front Wheel Center: 152 / 1236 = 12.30% */
-.wheel-slot-front {
-  left: 12.30%;
-}
-
-/* Rear Wheel Center: 950 / 1236 = 76.86% */
-.wheel-slot-rear {
-  left: 76.86%;
-}
-
-.spinning-wheel-disc {
-  width: 100%;
-  height: 100%;
-  object-fit: fill;
-  border-radius: 50%;
-  will-change: transform;
-  transform-origin: 50% 50%;
 }
 
 .car-kinetic-shadow {
@@ -273,8 +235,7 @@ html.lenis, html.lenis body {
   filter: blur(16px);
   border-radius: 100%;
   margin: -10px auto 0;
-  position: relative;
-  z-index: 1;
+  will-change: transform;
 }
 
 /* SCROLL INDICATOR */
