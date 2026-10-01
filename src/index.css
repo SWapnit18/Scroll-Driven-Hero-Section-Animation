@@ -8,6 +8,10 @@
     --accent-color: #FF5A36;
   }
 
+  html {
+    scroll-behavior: initial; /* Lenis handles smooth scrolling */
+  }
+
   body {
     background-color: #F5F2EC;
     color: #111111;
@@ -20,6 +24,27 @@
   h1, h2, h3, .font-heading {
     font-family: 'Space Grotesk', 'Manrope', sans-serif;
   }
+}
+
+/* Lenis Recommended Smooth Scroll CSS */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
 
 /* Custom editorial scrollbar */
@@ -39,9 +64,9 @@
 
 /* Glassmorphism and subtle elevation */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
@@ -50,12 +75,4 @@
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Subtle grid line texture */
-.grid-bg-pattern {
-  background-size: 40px 40px;
-  background-image: 
-    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
 }
