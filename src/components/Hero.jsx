@@ -11,13 +11,12 @@ export default function Hero() {
   const headlineRef = useRef(null);
   const subtitleRef = useRef(null);
   const statsRef = useRef([]);
-  const hudRef = useRef(null);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      // 1. Initial Page Load Animation
+      // 1. Initial Page Load Entrance Animation
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
       tl.fromTo(
@@ -39,66 +38,64 @@ export default function Hero() {
       )
       .fromTo(
         videoRef.current,
-        { opacity: 0, scale: 0.96 },
+        { opacity: 0, scale: 0.94 },
         { opacity: 1, scale: 1, duration: 1.2, ease: 'power2.out' },
         '-=0.8'
       );
 
-      // 2. Core Scroll-Driven Video Scrubbing (ScrollTrigger)
+      // 2. Core Scroll-Driven Video Frame Scrubbing
       if (!prefersReducedMotion) {
         const video = videoRef.current;
 
         const setupScrollVideo = () => {
-          if (!video || !video.duration || !isFinite(video.duration)) return;
+          const duration = (video && video.duration && isFinite(video.duration)) ? video.duration : 9;
 
           const scrollTl = gsap.timeline({
             scrollTrigger: {
               trigger: containerRef.current,
               start: 'top top',
-              end: '+=2000', // 2000px scroll duration for smooth cinematic frame-by-frame control
-              scrub: 1,      // 1-second smooth interpolation
+              end: '+=1800',
+              scrub: 1,
               pin: heroRef.current,
               anticipatePin: 1,
               invalidateOnRefresh: true,
             }
           });
 
-          // Scrub video playback position exactly across total duration
-          scrollTl.to(video, {
-            currentTime: video.duration,
-            ease: 'none',
-          }, 0);
+          // Scrub video currentTime with scroll progress
+          if (video) {
+            scrollTl.to(video, {
+              currentTime: duration,
+              ease: 'none',
+            }, 0);
+          }
 
-          // Subtle text parallax and fade
+          // Subtle text parallax
           scrollTl.to(headlineRef.current, {
-            y: -60,
-            opacity: 0.3,
-            scale: 0.95,
+            y: -50,
+            opacity: 0.35,
+            scale: 0.96,
             ease: 'none',
           }, 0);
 
           scrollTl.to(statsRef.current, {
-            y: 40,
-            opacity: 0.25,
+            y: 35,
+            opacity: 0.3,
             stagger: 0.05,
             ease: 'none',
           }, 0);
-
-          if (hudRef.current) {
-            scrollTl.to(hudRef.current, {
-              opacity: 0.8,
-              scale: 1.05,
-              ease: 'power1.inOut',
-            }, 0.5);
-          }
         };
 
         if (video) {
-          if (video.readyState >= 2 && isFinite(video.duration)) {
+          if (video.readyState >= 1 && isFinite(video.duration)) {
             setupScrollVideo();
           } else {
             video.addEventListener('loadedmetadata', setupScrollVideo, { once: true });
+            // Immediate fallback trigger so it never fails to attach
+            setTimeout(setupScrollVideo, 300);
           }
+        } else {
+          setupScrollVideo();
         }
       }
     }, containerRef);
@@ -118,7 +115,7 @@ export default function Hero() {
           </h1>
 
           <p ref={subtitleRef} className="hero-subtitle">
-            We create digital experiences designed to move people forward.
+            Digital experiences designed to move people forward.
           </p>
 
           {/* Impact Statistics */}
@@ -140,19 +137,19 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Cinematic Scroll-Driven Video Stage */}
-        <div className="video-stage">
-          <div className="video-glow-backdrop" />
+        {/* Central Vehicle Showcase Container (Video + Fallback Car Image) */}
+        <div className="car-showcase-container">
           <video
             ref={videoRef}
-            className="car-hero-video"
+            className="car-showcase-video"
             src="/assets/car-hero.mp4"
             muted
             playsInline
+            autoPlay
+            loop
             preload="auto"
           />
-          {/* Studio Floor Ambient Shadow */}
-          <div className="video-floor-shadow" />
+          <div className="car-ground-shadow" />
         </div>
 
         {/* Scroll Prompt */}

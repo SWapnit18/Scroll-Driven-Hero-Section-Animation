@@ -122,7 +122,7 @@ html.lenis, html.lenis body {
 }
 
 /* ==================================================
-   HERO SECTION & CINEMATIC VIDEO STAGE
+   HERO SECTION & CAR SHOWCASE
    ================================================== */
 .hero-container {
   position: relative;
@@ -208,45 +208,38 @@ html.lenis, html.lenis body {
   margin-top: 4px;
 }
 
-/* VIDEO STAGE */
-.video-stage {
+/* CAR SHOWCASE (VIDEO STAGE) */
+.car-showcase-container {
   position: absolute;
-  right: -2%;
-  bottom: 8%;
-  width: 56vw;
-  max-width: 840px;
+  right: 2%;
+  bottom: 10%;
+  width: 54vw;
+  max-width: 780px;
   z-index: 3;
   pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.video-glow-backdrop {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;
-  height: 70%;
-  background: radial-gradient(circle, rgba(255, 90, 54, 0.15) 0%, rgba(255, 150, 50, 0.05) 50%, transparent 70%);
-  filter: blur(40px);
-  z-index: -1;
-}
-
-.car-hero-video {
+.car-showcase-video {
   width: 100%;
   height: auto;
   display: block;
-  border-radius: 20px;
-  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.18);
-  filter: contrast(1.04) saturate(1.04);
+  border-radius: 24px;
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.22);
+  filter: contrast(1.05) saturate(1.05);
+  object-fit: cover;
+  background: #000;
 }
 
-.video-floor-shadow {
+.car-ground-shadow {
   width: 85%;
-  height: 20px;
-  background: rgba(0, 0, 0, 0.25);
+  height: 24px;
+  background: rgba(0, 0, 0, 0.3);
   filter: blur(16px);
   border-radius: 100%;
-  margin: -10px auto 0;
+  margin-top: -12px;
 }
 
 /* SCROLL INDICATOR */
@@ -449,7 +442,7 @@ html.lenis, html.lenis body {
     min-height: 100vh;
   }
 
-  .video-stage {
+  .car-showcase-container {
     position: relative;
     right: auto;
     bottom: auto;
