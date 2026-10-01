@@ -18,7 +18,7 @@ export default function Hero() {
     const ctx = gsap.context(() => {
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      // 1. Initial Page Load Animation
+      // 1. Initial Page Load Entrance
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
       tl.fromTo(
@@ -52,9 +52,7 @@ export default function Hero() {
         const travelY = isMobile ? -30 : -20;
         const scaleVal = isMobile ? 1.08 : 1.16;
         const rotateVal = isMobile ? 2 : 4;
-        
-        // Total wheel rotation degrees proportional to travel distance (forward spin)
-        const wheelSpin = isMobile ? 480 : 860;
+        const wheelSpin = isMobile ? 540 : 960;
 
         const scrollTl = gsap.timeline({
           scrollTrigger: {
@@ -149,33 +147,35 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Central Vehicle Showcase with Rotating Alloy Wheels */}
+        {/* Central Vehicle Showcase with Pixel-Perfect Rotating Wheels */}
         <div ref={carWrapperRef} className="car-kinetic-stage">
-          {/* Main Car Body */}
-          <img 
-            src="/car.png" 
-            alt="ITZFIZZ Velocity Aerodynamic Supercar" 
-            className="car-chassis-image"
-          />
-
-          {/* Front Rotating Wheel Layer */}
-          <div className="wheel-anchor wheel-front">
+          {/* Main Car Chassis Frame */}
+          <div className="car-composite-wrapper">
             <img 
-              ref={frontWheelRef}
-              src="/car_wheel_disc.png" 
-              alt="Front Forged Alloy Wheel" 
-              className="rotating-wheel-rim"
+              src="/car.png" 
+              alt="ITZFIZZ Velocity Aerodynamic Supercar" 
+              className="car-chassis-image"
             />
-          </div>
 
-          {/* Rear Rotating Wheel Layer */}
-          <div className="wheel-anchor wheel-rear">
-            <img 
-              ref={rearWheelRef}
-              src="/car_wheel_disc.png" 
-              alt="Rear Forged Alloy Wheel" 
-              className="rotating-wheel-rim"
-            />
+            {/* Front Rotating Wheel Layer */}
+            <div className="wheel-anchor wheel-front">
+              <img 
+                ref={frontWheelRef}
+                src="/wheel_front_disc.png" 
+                alt="Front Rotating Alloy Wheel" 
+                className="rotating-wheel-rim"
+              />
+            </div>
+
+            {/* Rear Rotating Wheel Layer */}
+            <div className="wheel-anchor wheel-rear">
+              <img 
+                ref={rearWheelRef}
+                src="/wheel_rear_disc.png" 
+                alt="Rear Rotating Alloy Wheel" 
+                className="rotating-wheel-rim"
+              />
+            </div>
           </div>
 
           {/* Ground Contact Shadow */}
