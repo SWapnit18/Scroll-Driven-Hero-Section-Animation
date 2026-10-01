@@ -105,8 +105,8 @@ npm run preview
 
 ## Live Demo & Repository
 
-- **Live Demo**: `PLACEHOLDER` *(Deploy to GitHub Pages, Vercel, or Netlify)*
-- **GitHub Repository**: `PLACEHOLDER` *(https://github.com/yourusername/itzfizz-scroll-animation)*
+- **Live Demo**: `https://swapnit18.github.io/Scroll-Driven-Hero-Section-Animation/` *(or Vercel / Netlify link)*
+- **GitHub Repository**: https://github.com/SWapnit18/Scroll-Driven-Hero-Section-Animation
 
 ---
 
