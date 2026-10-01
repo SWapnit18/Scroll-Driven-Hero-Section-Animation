@@ -58,8 +58,8 @@ html.lenis, html.lenis body {
 .navbar-scrolled {
   padding: 16px 5vw;
   background: rgba(245, 242, 236, 0.88);
-  backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
@@ -394,8 +394,8 @@ html.lenis, html.lenis body {
 .impact-card {
   position: relative;
   background: rgba(25, 25, 30, 0.6);
-  backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
   padding: 40px 32px;
