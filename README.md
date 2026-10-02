@@ -131,7 +131,7 @@ docker run -d -p 8080:80 --name itzfizz-experience itzfizz-app
 
 ## Live Demo & Repository
 
-- **Live Demo**: `https://swapnit18.github.io/Scroll-Driven-Hero-Section-Animation/` *(or Vercel / Netlify link)*
+- **Live Demo (Vercel)**: https://scroll-driven-hero-section-animatio-rouge.vercel.app/
 - **GitHub Repository**: https://github.com/SWapnit18/Scroll-Driven-Hero-Section-Animation
 
 ---
