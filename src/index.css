@@ -724,23 +724,23 @@ html.lenis, html.lenis body {
    ================================================== */
 @media (max-width: 992px) {
   .hero-viewport {
-    padding-top: 120px;
-    height: auto;
+    padding: 100px 5vw 40px;
+    height: 100vh;
     min-height: 100vh;
   }
 
   .car-kinetic-stage {
-    position: relative;
-    right: auto;
-    bottom: auto;
-    width: 92vw;
+    position: absolute;
+    right: -4%;
+    bottom: 8%;
+    width: 82vw;
     max-width: 580px;
-    margin: 40px auto;
   }
 
   .hero-stats {
     flex-wrap: wrap;
-    gap: 28px;
+    gap: 24px;
+    margin-top: 28px;
   }
 
   .impact-grid {
@@ -775,12 +775,48 @@ html.lenis, html.lenis body {
     text-transform: uppercase;
   }
 
+  .hero-viewport {
+    padding: 90px 5vw 24px;
+    justify-content: flex-start;
+    gap: 20px;
+  }
+
   .hero-headline {
-    letter-spacing: 0.16em;
+    font-size: clamp(34px, 10vw, 52px);
+    letter-spacing: 0.14em;
+    margin-bottom: 14px;
+  }
+
+  .hero-subtitle {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .stat-number {
+    font-size: 20px;
+  }
+
+  .stat-label {
+    font-size: 10px;
+  }
+
+  .car-kinetic-stage {
+    position: absolute;
+    right: -10%;
+    bottom: 6%;
+    width: 105vw;
+    max-width: none;
   }
 
   .impact-section, .cta-section {
-    padding: 100px 5vw;
+    padding: 80px 5vw;
   }
 
   .footer-inner {
