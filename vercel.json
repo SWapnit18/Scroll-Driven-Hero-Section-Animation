@@ -1,0 +1,10 @@
+{
+  "framework": "vite",
+  "buildCommand": "vite build",
+  "outputDirectory": "dist",
+  "git": {
+    "deploymentEnabled": {
+      "gh-pages": false
+    }
+  }
+}
