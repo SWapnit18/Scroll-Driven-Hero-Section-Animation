@@ -2,6 +2,9 @@ import React, { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+import pristineChassis from '/pristine_chassis.png?url';
+import customWheel from '/custom_forged_wheel.png?url';
+
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
@@ -156,7 +159,7 @@ export default function Hero() {
             <div className="wheel-mount wheel-mount-front">
               <img 
                 ref={frontWheelRef}
-                src="/custom_forged_wheel.png" 
+                src={customWheel} 
                 alt="Front Supercar Wheel & Tire"
                 className="wheel-disc-image"
               />
@@ -166,7 +169,7 @@ export default function Hero() {
             <div className="wheel-mount wheel-mount-rear">
               <img 
                 ref={rearWheelRef}
-                src="/custom_forged_wheel.png" 
+                src={customWheel} 
                 alt="Rear Supercar Wheel & Tire"
                 className="wheel-disc-image"
               />
@@ -174,7 +177,7 @@ export default function Hero() {
 
             {/* 3. Master Supercar Chassis (Front layer so fenders naturally overlap tires) */}
             <img 
-              src="/pristine_chassis.png" 
+              src={pristineChassis} 
               alt="ITZFIZZ Velocity Aerodynamic Supercar"
               className="car-chassis-image"
             />
